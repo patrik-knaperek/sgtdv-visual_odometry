@@ -14,17 +14,17 @@ public:
   VisualOdometry();
   ~VisualOdometry();
 
-  void BroadcastTf(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg);
-  void SetBaseFrameId(const std::string baseFrameId)
+  void broadcastTf(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &msg);
+  void setBaseFrameId(const std::string base_frame_id)
   {
-    this->m_baseFrameId = baseFrameId;
+    this->base_frame_id_ = base_frame_id;
   };
 
 private:
     
-  std::string m_baseFrameId;
-  tf::StampedTransform m_cameraToBaseTF;
-  tf::TransformBroadcaster m_broadcaster;
-  tf::TransformListener m_listener;
+  std::string base_frame_id_;
+  tf::StampedTransform camera_to_base_tf_;
+  tf::TransformBroadcaster tf_broadcaster_;
+  tf::TransformListener tf_listener_;
 
 };

@@ -5,8 +5,14 @@
 
 #include "../include/visual_odometry.h"
 
-VisualOdometry::VisualOdometry()
+VisualOdometry::VisualOdometry(ros::NodeHandle& nh) :
+  /* ROS interface init */
+  camera_pose_sub_(nh.subscribe("camera_pose", 1, &VisualOdometry::broadcastTf, this))
 {
+  /* Load parameters */
+  Utils::loadParam(nh,"/base_frame_id", std::string("camera_center"), &base_frame_id_);
+  
+  /* Get static TF from camera refernece frame to base frame */
   try
   {
     tf_listener_.lookupTransform(base_frame_id_, "camera_left", ros::Time(0), camera_to_base_tf_);
@@ -15,11 +21,6 @@ VisualOdometry::VisualOdometry()
   {
     std::cout << e.what();
   }
-
-}
-
-VisualOdometry::~VisualOdometry()
-{
 
 }
 

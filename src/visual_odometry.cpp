@@ -7,7 +7,7 @@
 
 VisualOdometry::VisualOdometry(ros::NodeHandle& nh) :
   /* ROS interface init */
-  camera_pose_sub_(nh.subscribe("camera_pose", 1, &VisualOdometry::broadcastTf, this))
+  camera_pose_sub_(nh.subscribe("camera/pose", 1, &VisualOdometry::broadcastTf, this))
 {
   /* Load parameters */
   Utils::loadParam(nh,"/base_frame_id", std::string("camera_center"), &base_frame_id_);
